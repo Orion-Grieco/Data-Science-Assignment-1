@@ -1,5 +1,4 @@
 getwd()
-setwd("E:/Madrid UC3M/Introduzione a scienza di dati")
 load("titanic_train.RDATA")
 head(titanic.train)
 # - View data
