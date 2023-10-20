@@ -127,13 +127,6 @@ byEmbark()
 save("Survival by embarkment location.png")
 
 
-table(titanic.train$SibSp)  
-ggplot(titanic.train) +
-  aes(x=SibSp, fill=Survived) +
-  geom_bar(position = position_fill())
-
-
-
 # --- Survival rate by ticket class
 byClass = function(){
   x = prop.table(table(as.factor(titanic.train$Pclass),titanic.train$Survived==1),1)
@@ -156,10 +149,6 @@ classVsSex = function(){
 classVsSex()
 save("Class vs Sex.png")
 
-ggplot(titanic.train) +
-  aes(x=Pclass, fill=Embarked) +
-  geom_bar(position=position_fill())
-# now that's an interesting correlation... clearly some impact
 
 
 # --- Parsing by cabin data
