@@ -63,15 +63,15 @@ dev.off()
 # 59-78
 age_survival <- function() {
   png(file = "age-survival.png")
-  age_group_1 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 1 & titanic.train$Age <= 18)
-  age_group_2 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 19 & titanic.train$Age <= 38)
-  age_group_3 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 39 & titanic.train$Age <= 58)
-  age_group_4 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 59 & titanic.train$Age <= 78)
+  age_group_1 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 1 & titanic.train$Age <= 18) / sum(titanic.train$Age >= 1 & titanic.train$Age <= 18)
+  age_group_2 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 19 & titanic.train$Age <= 38) / sum(titanic.train$Age >= 19 & titanic.train$Age <= 38)
+  age_group_3 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 39 & titanic.train$Age <= 58) / sum(titanic.train$Age >= 39 & titanic.train$Age <= 58)
+  age_group_4 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 59 & titanic.train$Age <= 78) / sum(titanic.train$Age >= 59 & titanic.train$Age <= 78)
   age_csum <- sum(titanic.train$Survived == 1)
   library(ggplot2)
   x_values <- c(age_group_1, age_group_2, age_group_3, age_group_4)
-  title_values <- c("Ages 1-18", "Ages 19-38", "Ages 39-58", "Ages 59-78")
-  percentages <- c(sum(age_group_1 / age_csum) * 100, sum(age_group_2 / age_csum) * 100, sum(age_group_3 / age_csum) * 100, sum(age_group_4 / age_csum) * 100)
+  title_values <- c("Ages 1-18", "Ages 19-38", "Ages 39-58", "Ages 59-74")
+  percentages <- c(age_group_1 * 100, age_group_2 * 100, age_group_3 * 100, age_group_4 * 100)
   pie(as.numeric(x_values), labels = percentages, main = "Survival Rate Percentages Based on Age", col = rainbow(length(x_values)), radius = .70)
   legend("topleft", title_values, cex = 0.8, fill = rainbow(length(x_values)))
 }
@@ -119,3 +119,5 @@ sibling_survival <- function() {
 # print(unique(titanic.train$Embarked))
 sibling_survival()
 dev.off()
+
+print(max(unique(titanic.train$Age)))
