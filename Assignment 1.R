@@ -61,6 +61,24 @@ dev.off()
 # 19-38
 # 39-58
 # 59-78
+age_survival_raw <- function() {
+  png(file = "age-survival_raw.png")
+  age_group_1 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 1 & titanic.train$Age <= 18) / sum(titanic.train$Survived == 1)
+  age_group_2 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 19 & titanic.train$Age <= 38) / sum(titanic.train$Survived == 1)
+  age_group_3 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 39 & titanic.train$Age <= 58) / sum(titanic.train$Survived == 1)
+  age_group_4 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 59 & titanic.train$Age <= 78) / sum(titanic.train$Survived == 1)
+  age_csum <- sum(titanic.train$Survived == 1)
+  library(ggplot2)
+  x_values <- c(age_group_1, age_group_2, age_group_3, age_group_4)
+  title_values <- c("Ages 1-18", "Ages 19-38", "Ages 39-58", "Ages 59-74")
+  percentages <- c(age_group_1 * 100, age_group_2 * 100, age_group_3 * 100, age_group_4 * 100)
+  pie(as.numeric(x_values), labels = percentages, main = "Survival Rate Percentages Based on Age", col = rainbow(length(x_values)), radius = .70)
+  legend("topleft", title_values, cex = 0.8, fill = rainbow(length(x_values)))
+}
+age_survival_raw()
+dev.off()
+
+
 age_survival <- function() {
   png(file = "age-survival.png")
   age_group_1 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 1 & titanic.train$Age <= 18) / sum(titanic.train$Age >= 1 & titanic.train$Age <= 18)
@@ -72,10 +90,28 @@ age_survival <- function() {
   x_values <- c(age_group_1, age_group_2, age_group_3, age_group_4)
   title_values <- c("Ages 1-18", "Ages 19-38", "Ages 39-58", "Ages 59-74")
   percentages <- c(age_group_1 * 100, age_group_2 * 100, age_group_3 * 100, age_group_4 * 100)
-  pie(as.numeric(x_values), labels = percentages, main = "Survival Rate Percentages Based on Age", col = rainbow(length(x_values)), radius = .70)
+  pie(as.numeric(x_values), labels = percentages, main = "Respective Age-Group Specific \n Survival Rate Percentages Based on Age", col = rainbow(length(x_values)), radius = .70)
   legend("topleft", title_values, cex = 0.8, fill = rainbow(length(x_values)))
 }
 age_survival()
+dev.off()
+
+# ages in 1-18 age group
+age_survival_18 <- function() {
+  png(file = "age-survival-breakdown.png")
+  age_group_1 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 1 & titanic.train$Age <= 6) / sum(titanic.train$Age >= 1 & titanic.train$Age <= 18)
+  age_group_2 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 7 & titanic.train$Age <= 12) / sum(titanic.train$Age >= 1 & titanic.train$Age <= 18)
+  age_group_3 <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 13 & titanic.train$Age <= 18) / sum(titanic.train$Age >= 1 & titanic.train$Age <= 18)
+  age_csum <- sum(titanic.train$Survived == 1)
+  library(ggplot2)
+  age_csum <- sum(titanic.train$Survived == 1 & titanic.train$Age >= 1 & titanic.train$Age <= 18)
+  x_values <- c(age_group_1, age_group_2, age_group_3)
+  title_values <- c("Ages 1-6", "Ages 7-12", "Ages 13-18")
+  percentages <- c(((age_group_1 / age_csum) * 10000), ((age_group_2 / age_csum) * 10000), ((age_group_3 / age_csum) * 10000))
+  pie(as.numeric(x_values), labels = percentages, main = "Breakdown of 1-18 year age range Survival Percentages", col = rainbow(length(x_values)), radius = 0.8)
+  legend("topleft", title_values, cex = 0.8, fill = rainbow(length(x_values)))
+}
+age_survival_18()
 dev.off()
 
 
